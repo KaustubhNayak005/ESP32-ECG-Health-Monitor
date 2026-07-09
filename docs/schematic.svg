@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" width="100%" height="100%">
     <defs>
         <!-- Grid Pattern -->
         <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -43,18 +43,7 @@
     </defs>
 
     <!-- Background Grid -->
-    <rect width="1200" height="900" fill="url(#grid-major)" />
-
-    <!-- Title Block -->
-    <rect x="780" y="750" width="400" height="130" fill="#ffffff" stroke="#343a40" stroke-width="3" filter="url(#shadow)" />
-    <line x1="780" y1="790" x2="1180" y2="790" stroke="#343a40" stroke-width="2" />
-    <line x1="780" y1="830" x2="1180" y2="830" stroke="#343a40" stroke-width="2" />
-    <line x1="980" y1="790" x2="980" y2="880" stroke="#343a40" stroke-width="2" />
-    <text x="980" y="775" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#343a40" text-anchor="middle">ECG Monitoring System Schematic</text>
-    <text x="790" y="815" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Drawn By: Kaustubh Nayak</text>
-    <text x="790" y="855" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Date: 2026-07-09</text>
-    <text x="990" y="815" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Rev: 2.0 (PlatformIO)</text>
-    <text x="990" y="855" font-family="'Courier New', monospace" font-size="14" fill="#343a40">License: Apache 2.0</text>
+    <rect width="1200" height="1000" fill="url(#grid-major)" />
 
     <!-- ======================= WIRING ROUTING (Drawn first so it's behind components) ======================= -->
     
@@ -124,15 +113,15 @@
     <!-- ======================= COMPONENTS ======================= -->
 
     <!-- ESP32-WROOM-32 (Center) -->
-    <g transform="translate(500, 200)">
-        <rect class="pcb-black" x="0" y="0" width="200" height="400" rx="10" />
+    <g transform="translate(480, 200)">
+        <rect class="pcb-black" x="0" y="0" width="240" height="400" rx="10" />
         <!-- Antenna Trace -->
-        <rect class="pin-rect" x="40" y="10" width="120" height="40" fill="#ced4da" />
-        <path d="M 50 40 V 20 H 70 V 40 H 90 V 20 H 110 V 40 H 130 V 20 H 150 V 40" stroke="#868e96" stroke-width="4" fill="none" />
+        <rect class="pin-rect" x="60" y="10" width="120" height="40" fill="#ced4da" />
+        <path d="M 70 40 V 20 H 90 V 40 H 110 V 20 H 130 V 40 H 150 V 20 H 170 V 40" stroke="#868e96" stroke-width="4" fill="none" />
         <!-- Shield -->
-        <rect class="shield" x="30" y="60" width="140" height="150" rx="4" />
-        <text x="100" y="120" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#343a40" text-anchor="middle">ESP32-WROOM-32</text>
-        <text x="100" y="140" font-family="'Courier New', monospace" font-size="12" fill="#868e96" text-anchor="middle">Wi-Fi &amp; Bluetooth</text>
+        <rect class="shield" x="50" y="60" width="140" height="150" rx="4" />
+        <text x="120" y="120" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#343a40" text-anchor="middle">ESP32-WROOM-32</text>
+        <text x="120" y="140" font-family="'Courier New', monospace" font-size="12" fill="#868e96" text-anchor="middle">Wi-Fi &amp; Bluetooth</text>
 
         <!-- ESP32 Pins Left -->
         <g transform="translate(0, 50)">
@@ -145,7 +134,7 @@
         </g>
 
         <!-- ESP32 Pins Right -->
-        <g transform="translate(200, 50)">
+        <g transform="translate(240, 50)">
             <rect class="pin-rect" x="-10" y="-5" width="15" height="10" /><text class="pin-text-right" x="-15" y="4">5V (VIN)</text>
             <rect class="pin-rect" x="-10" y="25" width="15" height="10" /><text class="pin-text-right" x="-15" y="34">GND</text>
             <rect class="pin-rect" x="-10" y="85" width="15" height="10" /><text class="pin-text-right" x="-15" y="94">GPIO 21 (SDA)</text>
@@ -250,8 +239,19 @@
     <!-- Floating Wire Labels -->
     <rect x="350" y="240" width="40" height="18" fill="white" rx="3" /><text class="wire-label" x="370" y="253" text-anchor="middle">3.3V</text>
     <rect x="350" y="270" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="365" y="283" text-anchor="middle">GND</text>
-    <rect x="520" y="130" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="535" y="143" text-anchor="middle">5V</text>
+    <rect x="500" y="130" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="515" y="143" text-anchor="middle">5V</text>
     <rect x="800" y="300" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="815" y="313" text-anchor="middle">SDA</text>
     <rect x="830" y="330" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="845" y="343" text-anchor="middle">SCL</text>
     
+    <!-- Title Block (Drawn LAST to be on top) -->
+    <rect x="780" y="850" width="400" height="130" fill="#ffffff" stroke="#343a40" stroke-width="3" filter="url(#shadow)" />
+    <line x1="780" y1="890" x2="1180" y2="890" stroke="#343a40" stroke-width="2" />
+    <line x1="780" y1="930" x2="1180" y2="930" stroke="#343a40" stroke-width="2" />
+    <line x1="980" y1="890" x2="980" y2="980" stroke="#343a40" stroke-width="2" />
+    <text x="980" y="875" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#343a40" text-anchor="middle">ECG Monitoring System Schematic</text>
+    <text x="790" y="915" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Drawn By: Kaustubh Nayak</text>
+    <text x="790" y="955" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Date: 2026-07-09</text>
+    <text x="990" y="915" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Rev: 2.0 (PlatformIO)</text>
+    <text x="990" y="955" font-family="'Courier New', monospace" font-size="14" fill="#343a40">License: Apache 2.0</text>
+
 </svg>
