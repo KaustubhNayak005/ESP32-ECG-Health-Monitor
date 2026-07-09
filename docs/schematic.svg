@@ -1,257 +1,186 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" width="100%" height="100%">
-    <defs>
-        <!-- Grid Pattern -->
-        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e9ecef" stroke-width="1"/>
-        </pattern>
-        <pattern id="grid-major" width="100" height="100" patternUnits="userSpaceOnUse">
-            <rect width="100" height="100" fill="url(#grid)" />
-            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#dee2e6" stroke-width="2"/>
-        </pattern>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950" width="100%" height="100%" style="background-color: #f8f9fa;">
+
+<defs>
+    <style>
+        .mod { fill: #ffffff; stroke: #343a40; stroke-width: 2px; }
+        .mod-title { font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; fill: #212529; text-anchor: middle; }
+        .pin { fill: #ffd43b; stroke: #b08d00; stroke-width: 1px; }
+        .pin-lbl-l { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #495057; text-anchor: start; }
+        .pin-lbl-r { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #495057; text-anchor: end; }
+        .bus { stroke-width: 4px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .wire { stroke-width: 2px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .junct { fill: #000000; }
+        .bus-lbl { font-family: 'Courier New', monospace; font-size: 14px; font-weight: bold; }
+    </style>
+</defs>
+
+<g id="buses">
+<path class="bus" stroke="#e03131" stroke-dasharray="5,5" d="M 350 150 V 850" />
+<text class="bus-lbl" fill="#e03131" x="350" y="140" text-anchor="middle">5V</text>
+<path class="bus" stroke="#c92a2a" d="M 380 150 V 850" />
+<text class="bus-lbl" fill="#c92a2a" x="380" y="120" text-anchor="middle">3.3V</text>
+<path class="bus" stroke="#000000" d="M 410 150 V 880" />
+<text class="bus-lbl" fill="#000000" x="410" y="140" text-anchor="middle">GND</text>
+<path class="bus" stroke="#2b8a3e" d="M 440 250 V 750" />
+<text class="bus-lbl" fill="#2b8a3e" x="440" y="240" text-anchor="middle">SDA</text>
+<path class="bus" stroke="#2b8a3e" stroke-dasharray="2,2" d="M 470 250 V 750" />
+<text class="bus-lbl" fill="#2b8a3e" x="470" y="220" text-anchor="middle">SCL</text>
+</g>
+<g transform="translate(100,150)">
+<rect class="mod" width="150" height="150" rx="5" />
+<text class="mod-title" x="75.0" y="25">AD8232 ECG</text>
+<rect class="pin" x="145" y="45" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="54">3.3V</text>
+<rect class="pin" x="145" y="65" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="74">GND</text>
+<rect class="pin" x="145" y="85" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="94">OUTPUT</text>
+<rect class="pin" x="145" y="105" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="114">LO+</text>
+<rect class="pin" x="145" y="125" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="134">LO-</text>
+</g>
+<path class="wire" stroke="#c92a2a"  d="M 250 200 H 380" />
+<circle class="junct" cx="380" cy="200" r="4" fill="#c92a2a" />
+<path class="wire" stroke="#000000"  d="M 250 220 H 410" />
+<circle class="junct" cx="410" cy="220" r="4" fill="#000000" />
+<g transform="translate(100,350)">
+<rect class="mod" width="150" height="100" rx="5" />
+<text class="mod-title" x="75.0" y="25">Buzzer</text>
+<rect class="pin" x="145" y="45" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="54">VCC(5V)</text>
+<rect class="pin" x="145" y="65" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="74">GND</text>
+<rect class="pin" x="145" y="85" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="94">I/O</text>
+</g>
+<path class="wire" stroke="#e03131" stroke-dasharray="4,4" d="M 250 400 H 350" />
+<circle class="junct" cx="350" cy="400" r="4" fill="#e03131" />
+<path class="wire" stroke="#000000"  d="M 250 420 H 410" />
+<circle class="junct" cx="410" cy="420" r="4" fill="#000000" />
+<g transform="translate(100,500)">
+<rect class="mod" width="150" height="120" rx="5" />
+<text class="mod-title" x="75.0" y="25">MAX30102</text>
+<rect class="pin" x="145" y="45" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="54">VIN(3.3V)</text>
+<rect class="pin" x="145" y="65" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="74">GND</text>
+<rect class="pin" x="145" y="85" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="94">SDA</text>
+<rect class="pin" x="145" y="105" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="114">SCL</text>
+</g>
+<path class="wire" stroke="#c92a2a"  d="M 250 550 H 380" />
+<circle class="junct" cx="380" cy="550" r="4" fill="#c92a2a" />
+<path class="wire" stroke="#000000"  d="M 250 570 H 410" />
+<circle class="junct" cx="410" cy="570" r="4" fill="#000000" />
+<path class="wire" stroke="#2b8a3e"  d="M 250 590 H 440" />
+<circle class="junct" cx="440" cy="590" r="4" fill="#2b8a3e" />
+<path class="wire" stroke="#2b8a3e" stroke-dasharray="4,4" d="M 250 610 H 470" />
+<circle class="junct" cx="470" cy="610" r="4" fill="#2b8a3e" />
+<g transform="translate(100,650)">
+<rect class="mod" width="150" height="120" rx="5" />
+<text class="mod-title" x="75.0" y="25">OLED 1.3"</text>
+<rect class="pin" x="145" y="45" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="54">VCC(3.3V)</text>
+<rect class="pin" x="145" y="65" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="74">GND</text>
+<rect class="pin" x="145" y="85" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="94">SDA</text>
+<rect class="pin" x="145" y="105" width="10" height="10" />
+<text class="pin-lbl-r" x="135" y="114">SCL</text>
+</g>
+<path class="wire" stroke="#c92a2a"  d="M 250 700 H 380" />
+<circle class="junct" cx="380" cy="700" r="4" fill="#c92a2a" />
+<path class="wire" stroke="#000000"  d="M 250 720 H 410" />
+<circle class="junct" cx="410" cy="720" r="4" fill="#000000" />
+<path class="wire" stroke="#2b8a3e"  d="M 250 740 H 440" />
+<circle class="junct" cx="440" cy="740" r="4" fill="#2b8a3e" />
+<path class="wire" stroke="#2b8a3e" stroke-dasharray="4,4" d="M 250 760 H 470" />
+<circle class="junct" cx="470" cy="760" r="4" fill="#2b8a3e" />
+<g transform="translate(600,250)">
+<rect class="mod" width="240" height="400" rx="5" />
+<text class="mod-title" x="120.0" y="25">ESP32-WROOM-32</text>
+<rect class="pin" x="-5" y="45" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="54">5V (VIN)</text>
+<rect class="pin" x="-5" y="75" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="84">3.3V</text>
+<rect class="pin" x="-5" y="105" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="114">GND</text>
+<rect class="pin" x="-5" y="195" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="204">SDA (GPIO21)</text>
+<rect class="pin" x="-5" y="225" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="234">SCL (GPIO22)</text>
+<rect class="pin" x="235" y="45" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="54">GPIO34 (ADC)</text>
+<rect class="pin" x="235" y="75" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="84">GPIO14 (LO+)</text>
+<rect class="pin" x="235" y="105" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="114">GPIO12 (LO-)</text>
+<rect class="pin" x="235" y="135" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="144">GPIO25 (BUZ)</text>
+<rect class="pin" x="235" y="245" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="254">GPIO5 (CS)</text>
+<rect class="pin" x="235" y="275" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="284">GPIO23 (MOSI)</text>
+<rect class="pin" x="235" y="305" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="314">GPIO19 (MISO)</text>
+<rect class="pin" x="235" y="335" width="10" height="10" />
+<text class="pin-lbl-r" x="225" y="344">GPIO18 (SCK)</text>
+</g>
+<path class="wire" stroke="#e03131" stroke-dasharray="4,4" d="M 350 300 H 600" />
+<path class="wire" stroke="#c92a2a"  d="M 380 330 H 600" />
+<path class="wire" stroke="#000000"  d="M 410 360 H 600" />
+<path class="wire" stroke="#2b8a3e"  d="M 440 450 H 600" />
+<path class="wire" stroke="#2b8a3e" stroke-dasharray="4,4" d="M 470 480 H 600" />
+<path class="wire" stroke="#1c7ed6" d="M 250 240 H 540 V 210 H 900 V 300 H 840" />
+<path class="wire" stroke="#1c7ed6" d="M 250 260 H 520 V 190 H 920 V 330 H 840" />
+<path class="wire" stroke="#1c7ed6" d="M 250 280 H 500 V 170 H 940 V 360 H 840" />
+<path class="wire" stroke="#1c7ed6" d="M 250 440 H 480 V 150 H 960 V 390 H 840" />
+<g transform="translate(950,600)">
+<rect class="mod" width="140" height="200" rx="5" />
+<text class="mod-title" x="70.0" y="25">MicroSD Module</text>
+<rect class="pin" x="-5" y="45" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="54">VCC (5V)</text>
+<rect class="pin" x="-5" y="65" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="74">GND</text>
+<rect class="pin" x="-5" y="105" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="114">CS</text>
+<rect class="pin" x="-5" y="135" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="144">MOSI</text>
+<rect class="pin" x="-5" y="165" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="174">MISO</text>
+<rect class="pin" x="-5" y="185" width="10" height="10" />
+<text class="pin-lbl-l" x="15" y="194">SCK</text>
+</g>
+<path class="wire" stroke="#e03131" stroke-dasharray="4,4" d="M 950 650 H 720.0 V 880 H 350" />
+<circle class="junct" cx="350" cy="880" r="4" fill="#e03131" />
+<path class="wire" stroke="#000000" d="M 950 670 H 740.0 V 900 H 410" />
+<circle class="junct" cx="410" cy="900" r="4" fill="#000000" />
+<path class="wire" stroke="#e67700" d="M 950 710 H 880 V 500 H 840" />
+<path class="wire" stroke="#e67700" d="M 950 740 H 890 V 530 H 840" />
+<path class="wire" stroke="#e67700" d="M 950 770 H 900 V 560 H 840" />
+<path class="wire" stroke="#e67700" d="M 950 790 H 910 V 590 H 840" />
+
+    <g transform="translate(900, 50)">
+        <rect width="250" height="200" fill="#ffffff" stroke="#343a40" stroke-width="2" rx="5" />
+        <text font-family="'Courier New', monospace" font-size="16" font-weight="bold" x="125" y="30" text-anchor="middle" fill="#212529">WIRING LEGEND</text>
         
-        <!-- Drop Shadow -->
-        <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.15"/>
-        </filter>
-
-        <!-- Component Styles -->
-        <style>
-            .pcb { fill: #2b8a3e; stroke: #1971c2; stroke-width: 2px; filter: url(#shadow); }
-            .pcb-black { fill: #212529; stroke: #343a40; stroke-width: 2px; filter: url(#shadow); }
-            .pcb-blue { fill: #1864ab; stroke: #0b2b5e; stroke-width: 2px; filter: url(#shadow); }
-            .pcb-purple { fill: #5f3dc4; stroke: #3b286d; stroke-width: 2px; filter: url(#shadow); }
-            .shield { fill: #ced4da; stroke: #868e96; stroke-width: 2px; }
-            .chip { fill: #212529; stroke: #000; stroke-width: 1px; }
-            .title-text { font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
-            
-            .pin-rect { fill: #ffd43b; stroke: #b08d00; stroke-width: 1px; }
-            .pin-text-left { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: start; }
-            .pin-text-right { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: end; }
-            
-            /* Wiring Styles */
-            .wire-pwr33 { stroke: #e03131; stroke-width: 3px; fill: none; stroke-linejoin: bevel; }
-            .wire-pwr5  { stroke: #c92a2a; stroke-width: 3px; fill: none; stroke-linejoin: bevel; stroke-dasharray: 8 4; }
-            .wire-gnd   { stroke: #000000; stroke-width: 3px; fill: none; stroke-linejoin: bevel; }
-            .wire-sig   { stroke: #1c7ed6; stroke-width: 3px; fill: none; stroke-linejoin: bevel; }
-            .wire-i2c   { stroke: #2f9e44; stroke-width: 3px; fill: none; stroke-linejoin: bevel; }
-            .wire-spi   { stroke: #e67700; stroke-width: 3px; fill: none; stroke-linejoin: bevel; }
-            
-            .wire-label { font-family: 'Courier New', monospace; font-size: 12px; fill: #495057; font-weight: bold; background: white;}
-            .junction { fill: #000000; }
-        </style>
-    </defs>
-
-    <!-- Background Grid -->
-    <rect width="1200" height="1000" fill="url(#grid-major)" />
-
-    <!-- ======================= WIRING ROUTING (Drawn first so it's behind components) ======================= -->
-    
-    <!-- 3.3V Power Bus (Red) -->
-    <!-- ESP32 to AD8232 -->
-    <path class="wire-pwr33" d="M 270 250 H 500" />
-    <!-- ESP32 to MAX30102 -->
-    <path class="wire-pwr33" d="M 900 250 H 750 V 220 H 480 V 250 H 500" />
-    <!-- OLED to MAX VIN line -->
-    <path class="wire-pwr33" d="M 900 420 H 830 V 250 H 750" />
-    <circle class="junction" cx="750" cy="250" r="4" fill="#e03131" />
-
-    <!-- 5V Power Bus (Dashed Red) -->
-    <!-- SD Card to ESP32 -->
-    <path class="wire-pwr5" d="M 900 620 H 820 V 250 H 700" />
-    <!-- Buzzer to ESP32 -->
-    <path class="wire-pwr5" d="M 270 520 H 340 V 150 H 750 V 250 H 700" />
-    <circle class="junction" cx="750" cy="250" r="4" fill="#c92a2a" /> <!-- Jump over point -->
-
-    <!-- Ground Bus (Black) -->
-    <!-- ESP32 to AD8232 -->
-    <path class="wire-gnd" d="M 270 280 H 500" />
-    <!-- ESP32 to Buzzer -->
-    <path class="wire-gnd" d="M 270 550 H 480 V 280 H 500" />
-    <circle class="junction" cx="480" cy="280" r="4" />
-    <!-- ESP32 to MAX30102 -->
-    <path class="wire-gnd" d="M 900 280 H 700" />
-    <!-- ESP32 to OLED -->
-    <path class="wire-gnd" d="M 900 450 H 810 V 280 H 700" />
-    <circle class="junction" cx="810" cy="280" r="4" />
-    <!-- ESP32 to SD -->
-    <path class="wire-gnd" d="M 900 650 H 790 V 280 H 700" />
-    <circle class="junction" cx="790" cy="280" r="4" />
-
-    <!-- Analog / GPIO (Blue) -->
-    <!-- AD8232 OUTPUT to GPIO34 -->
-    <path class="wire-sig" d="M 270 310 H 460 V 340 H 500" />
-    <!-- AD8232 LO+ to GPIO14 -->
-    <path class="wire-sig" d="M 270 340 H 440 V 370 H 500" />
-    <!-- AD8232 LO- to GPIO12 -->
-    <path class="wire-sig" d="M 270 370 H 420 V 400 H 500" />
-    <!-- Buzzer I/O to GPIO25 -->
-    <path class="wire-sig" d="M 270 580 H 460 V 430 H 500" />
-
-    <!-- I2C Bus (Green) -->
-    <!-- MAX30102 SDA -->
-    <path class="wire-i2c" d="M 900 310 H 770 V 340 H 700" />
-    <!-- OLED SDA -->
-    <path class="wire-i2c" d="M 900 480 H 770 V 340" />
-    <circle class="junction" cx="770" cy="340" r="4" fill="#2f9e44" />
-    <!-- MAX30102 SCL -->
-    <path class="wire-i2c" d="M 900 340 H 750 V 370 H 700" />
-    <!-- OLED SCL -->
-    <path class="wire-i2c" d="M 900 510 H 750 V 370" />
-    <circle class="junction" cx="750" cy="370" r="4" fill="#2f9e44" />
-
-    <!-- SPI Bus (Orange) -->
-    <!-- SD CS to GPIO 5 -->
-    <path class="wire-spi" d="M 900 680 H 770 V 460 H 700" />
-    <!-- SD MOSI to GPIO 23 -->
-    <path class="wire-spi" d="M 900 710 H 750 V 490 H 700" />
-    <!-- SD MISO to GPIO 19 -->
-    <path class="wire-spi" d="M 900 740 H 730 V 520 H 700" />
-    <!-- SD SCK to GPIO 18 -->
-    <path class="wire-spi" d="M 900 770 H 710 V 550 H 700" />
-
-    <!-- ======================= COMPONENTS ======================= -->
-
-    <!-- ESP32-WROOM-32 (Center) -->
-    <g transform="translate(480, 200)">
-        <rect class="pcb-black" x="0" y="0" width="240" height="400" rx="10" />
-        <!-- Antenna Trace -->
-        <rect class="pin-rect" x="60" y="10" width="120" height="40" fill="#ced4da" />
-        <path d="M 70 40 V 20 H 90 V 40 H 110 V 20 H 130 V 40 H 150 V 20 H 170 V 40" stroke="#868e96" stroke-width="4" fill="none" />
-        <!-- Shield -->
-        <rect class="shield" x="50" y="60" width="140" height="150" rx="4" />
-        <text x="120" y="120" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#343a40" text-anchor="middle">ESP32-WROOM-32</text>
-        <text x="120" y="140" font-family="'Courier New', monospace" font-size="12" fill="#868e96" text-anchor="middle">Wi-Fi &amp; Bluetooth</text>
-
-        <!-- ESP32 Pins Left -->
-        <g transform="translate(0, 50)">
-            <rect class="pin-rect" x="-5" y="-5" width="15" height="10" /><text class="pin-text-left" x="15" y="4">3.3V</text>
-            <rect class="pin-rect" x="-5" y="25" width="15" height="10" /><text class="pin-text-left" x="15" y="34">GND</text>
-            <rect class="pin-rect" x="-5" y="85" width="15" height="10" /><text class="pin-text-left" x="15" y="94">GPIO 34 (ADC)</text>
-            <rect class="pin-rect" x="-5" y="115" width="15" height="10" /><text class="pin-text-left" x="15" y="124">GPIO 14 (LO+)</text>
-            <rect class="pin-rect" x="-5" y="145" width="15" height="10" /><text class="pin-text-left" x="15" y="154">GPIO 12 (LO-)</text>
-            <rect class="pin-rect" x="-5" y="175" width="15" height="10" /><text class="pin-text-left" x="15" y="184">GPIO 25 (BUZ)</text>
-        </g>
-
-        <!-- ESP32 Pins Right -->
-        <g transform="translate(240, 50)">
-            <rect class="pin-rect" x="-10" y="-5" width="15" height="10" /><text class="pin-text-right" x="-15" y="4">5V (VIN)</text>
-            <rect class="pin-rect" x="-10" y="25" width="15" height="10" /><text class="pin-text-right" x="-15" y="34">GND</text>
-            <rect class="pin-rect" x="-10" y="85" width="15" height="10" /><text class="pin-text-right" x="-15" y="94">GPIO 21 (SDA)</text>
-            <rect class="pin-rect" x="-10" y="115" width="15" height="10" /><text class="pin-text-right" x="-15" y="124">GPIO 22 (SCL)</text>
-            <rect class="pin-rect" x="-10" y="205" width="15" height="10" /><text class="pin-text-right" x="-15" y="214">GPIO 5 (CS)</text>
-            <rect class="pin-rect" x="-10" y="235" width="15" height="10" /><text class="pin-text-right" x="-15" y="244">GPIO 23 (MOSI)</text>
-            <rect class="pin-rect" x="-10" y="265" width="15" height="10" /><text class="pin-text-right" x="-15" y="274">GPIO 19 (MISO)</text>
-            <rect class="pin-rect" x="-10" y="295" width="15" height="10" /><text class="pin-text-right" x="-15" y="304">GPIO 18 (SCK)</text>
-        </g>
-    </g>
-
-    <!-- AD8232 ECG Sensor (Top Left) -->
-    <g transform="translate(150, 180)">
-        <rect class="pcb" x="0" y="0" width="120" height="220" rx="5" />
-        <text class="title-text" x="60" y="30">AD8232</text>
-        <!-- Sensor Graphic -->
-        <circle cx="60" cy="110" r="25" fill="#f8f9fa" />
-        <path d="M 40 110 L 50 110 L 55 90 L 65 130 L 70 110 L 80 110" stroke="#e03131" stroke-width="3" fill="none" />
-        <rect class="chip" x="50" y="50" width="20" height="20" />
+        <line x1="20" y1="60" x2="60" y2="60" stroke="#e03131" stroke-width="3" stroke-dasharray="4,4" />
+        <text font-family="'Courier New', monospace" font-size="14" font-weight="bold" x="80" y="65" fill="#495057">5V Power</text>
         
-        <!-- Pins Right -->
-        <g transform="translate(120, 70)">
-            <rect class="pin-rect" x="-10" y="-5" width="15" height="10" /><text class="pin-text-right" x="-15" y="4">3.3V</text>
-            <rect class="pin-rect" x="-10" y="25" width="15" height="10" /><text class="pin-text-right" x="-15" y="34">GND</text>
-            <rect class="pin-rect" x="-10" y="55" width="15" height="10" /><text class="pin-text-right" x="-15" y="64">OUTPUT</text>
-            <rect class="pin-rect" x="-10" y="85" width="15" height="10" /><text class="pin-text-right" x="-15" y="94">LO+</text>
-            <rect class="pin-rect" x="-10" y="115" width="15" height="10" /><text class="pin-text-right" x="-15" y="124">LO-</text>
-        </g>
-    </g>
-
-    <!-- Active Buzzer (Bottom Left) -->
-    <g transform="translate(150, 480)">
-        <rect class="pcb-blue" x="0" y="0" width="120" height="130" rx="5" />
-        <text class="title-text" x="60" y="25">Buzzer</text>
-        <!-- Buzzer Graphic -->
-        <circle cx="60" cy="70" r="30" fill="#212529" stroke="#495057" stroke-width="4"/>
-        <circle cx="60" cy="70" r="10" fill="#343a40" />
+        <line x1="20" y1="90" x2="60" y2="90" stroke="#c92a2a" stroke-width="3" />
+        <text font-family="'Courier New', monospace" font-size="14" font-weight="bold" x="80" y="95" fill="#495057">3.3V Power</text>
         
-        <!-- Pins Right -->
-        <g transform="translate(120, 40)">
-            <rect class="pin-rect" x="-10" y="-5" width="15" height="10" /><text class="pin-text-right" x="-15" y="4">VCC (5V)</text>
-            <rect class="pin-rect" x="-10" y="25" width="15" height="10" /><text class="pin-text-right" x="-15" y="34">GND</text>
-            <rect class="pin-rect" x="-10" y="55" width="15" height="10" /><text class="pin-text-right" x="-15" y="64">I/O</text>
-        </g>
+        <line x1="20" y1="120" x2="60" y2="120" stroke="#000000" stroke-width="3" />
+        <text font-family="'Courier New', monospace" font-size="14" font-weight="bold" x="80" y="125" fill="#495057">Ground (GND)</text>
+        
+        <line x1="20" y1="150" x2="60" y2="150" stroke="#2b8a3e" stroke-width="3" />
+        <text font-family="'Courier New', monospace" font-size="14" font-weight="bold" x="80" y="155" fill="#495057">I2C (SDA/SCL)</text>
+        
+        <line x1="20" y1="180" x2="60" y2="180" stroke="#e67700" stroke-width="3" />
+        <text font-family="'Courier New', monospace" font-size="14" font-weight="bold" x="80" y="185" fill="#495057">SPI Bus</text>
     </g>
-
-    <!-- MAX30102 (Top Right) -->
-    <g transform="translate(900, 200)">
-        <rect class="pcb-purple" x="0" y="0" width="120" height="170" rx="5" />
-        <text class="title-text" x="60" y="25">MAX30102</text>
-        <!-- Sensor Window -->
-        <rect class="chip" x="40" y="80" width="40" height="30" rx="3" />
-        <circle cx="50" cy="95" r="5" fill="#c92a2a" /> <!-- Red LED -->
-        <circle cx="70" cy="95" r="5" fill="#495057" /> <!-- IR LED -->
-
-        <!-- Pins Left -->
-        <g transform="translate(0, 50)">
-            <rect class="pin-rect" x="-5" y="-5" width="15" height="10" /><text class="pin-text-left" x="15" y="4">VIN</text>
-            <rect class="pin-rect" x="-5" y="25" width="15" height="10" /><text class="pin-text-left" x="15" y="34">GND</text>
-            <rect class="pin-rect" x="-5" y="55" width="15" height="10" /><text class="pin-text-left" x="15" y="64">SDA</text>
-            <rect class="pin-rect" x="-5" y="85" width="15" height="10" /><text class="pin-text-left" x="15" y="94">SCL</text>
-        </g>
-    </g>
-
-    <!-- OLED Display (Middle Right) -->
-    <g transform="translate(900, 390)">
-        <rect class="pcb-blue" x="0" y="0" width="140" height="150" rx="5" />
-        <text class="title-text" x="70" y="20">OLED 1.3"</text>
-        <!-- Screen -->
-        <rect x="25" y="70" width="100" height="60" fill="#000000" stroke="#f1f3f5" stroke-width="2" />
-        <text x="35" y="90" font-family="'Courier New', monospace" font-size="10" fill="#0ca678">HR: 85 BPM</text>
-        <text x="35" y="105" font-family="'Courier New', monospace" font-size="10" fill="#0ca678">SpO2: 98%</text>
-
-        <!-- Pins Left -->
-        <g transform="translate(0, 30)">
-            <rect class="pin-rect" x="-5" y="-5" width="15" height="10" /><text class="pin-text-left" x="15" y="4">VCC</text>
-            <rect class="pin-rect" x="-5" y="25" width="15" height="10" /><text class="pin-text-left" x="15" y="34">GND</text>
-            <rect class="pin-rect" x="-5" y="55" width="15" height="10" /><text class="pin-text-left" x="15" y="64">SDA</text>
-            <rect class="pin-rect" x="-5" y="85" width="15" height="10" /><text class="pin-text-left" x="15" y="94">SCL</text>
-        </g>
-    </g>
-
-    <!-- MicroSD Card (Bottom Right) -->
-    <g transform="translate(900, 560)">
-        <rect class="pcb-blue" x="0" y="0" width="120" height="230" rx="5" />
-        <text class="title-text" x="60" y="25">MicroSD</text>
-        <!-- SD Slot Graphic -->
-        <rect x="30" y="160" width="80" height="50" fill="#ced4da" stroke="#868e96" stroke-width="2" />
-        <rect x="35" y="150" width="70" height="15" fill="#343a40" />
-
-        <!-- Pins Left -->
-        <g transform="translate(0, 60)">
-            <rect class="pin-rect" x="-5" y="-5" width="15" height="10" /><text class="pin-text-left" x="15" y="4">VCC (5V)</text>
-            <rect class="pin-rect" x="-5" y="25" width="15" height="10" /><text class="pin-text-left" x="15" y="34">GND</text>
-            <rect class="pin-rect" x="-5" y="55" width="15" height="10" /><text class="pin-text-left" x="15" y="64">CS</text>
-            <rect class="pin-rect" x="-5" y="85" width="15" height="10" /><text class="pin-text-left" x="15" y="94">MOSI</text>
-            <rect class="pin-rect" x="-5" y="115" width="15" height="10" /><text class="pin-text-left" x="15" y="124">MISO</text>
-            <rect class="pin-rect" x="-5" y="145" width="15" height="10" /><text class="pin-text-left" x="15" y="154">SCK</text>
-        </g>
-    </g>
-
-    <!-- Floating Wire Labels -->
-    <rect x="350" y="240" width="40" height="18" fill="white" rx="3" /><text class="wire-label" x="370" y="253" text-anchor="middle">3.3V</text>
-    <rect x="350" y="270" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="365" y="283" text-anchor="middle">GND</text>
-    <rect x="500" y="130" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="515" y="143" text-anchor="middle">5V</text>
-    <rect x="800" y="300" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="815" y="313" text-anchor="middle">SDA</text>
-    <rect x="830" y="330" width="30" height="18" fill="white" rx="3" /><text class="wire-label" x="845" y="343" text-anchor="middle">SCL</text>
-    
-    <!-- Title Block (Drawn LAST to be on top) -->
-    <rect x="780" y="850" width="400" height="130" fill="#ffffff" stroke="#343a40" stroke-width="3" filter="url(#shadow)" />
-    <line x1="780" y1="890" x2="1180" y2="890" stroke="#343a40" stroke-width="2" />
-    <line x1="780" y1="930" x2="1180" y2="930" stroke="#343a40" stroke-width="2" />
-    <line x1="980" y1="890" x2="980" y2="980" stroke="#343a40" stroke-width="2" />
-    <text x="980" y="875" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#343a40" text-anchor="middle">ECG Monitoring System Schematic</text>
-    <text x="790" y="915" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Drawn By: Kaustubh Nayak</text>
-    <text x="790" y="955" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Date: 2026-07-09</text>
-    <text x="990" y="915" font-family="'Courier New', monospace" font-size="14" fill="#343a40">Rev: 2.0 (PlatformIO)</text>
-    <text x="990" y="955" font-family="'Courier New', monospace" font-size="14" fill="#343a40">License: Apache 2.0</text>
 
 </svg>
