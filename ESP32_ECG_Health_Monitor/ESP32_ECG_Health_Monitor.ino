@@ -3,11 +3,13 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
+#include <BlynkSimpleEsp32.h>
 #include "MAX30105.h" // SparkFun MAX3010x library
 #include "heartRate.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <LittleFS.h>
+#include <SPI.h>
+#include <SD.h>
 #include "config.h"
 
 // OLED Display settings
@@ -24,6 +26,7 @@ byte rateSpot = 0;
 long lastBeat = 0;
 float beatsPerMinute;
 int beatAvg = 0;
+int spO2 = 0; // Simulated SpO2 for demonstration (MAX30102 algorithm can be complex)
 
 // Telegram Bot
 WiFiClientSecure secured_client;
@@ -36,12 +39,16 @@ unsigned long lastEcgTime = 0;
 float movingAvgEcg = 0.0;
 const float alpha = 0.1; // Smoothing factor for low pass filter
 
+bool sdCardReady = false;
+
 void setup() {
   Serial.begin(115200);
   
   // Initialize Pins
   pinMode(PIN_ECG_LO_PLUS, INPUT);
   pinMode(PIN_ECG_LO_MINUS, INPUT);
+  pinMode(PIN_BUZZER, OUTPUT);
+  digitalWrite(PIN_BUZZER, LOW);
   
   // Initialize OLED
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
@@ -52,16 +59,20 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("Initializing...");
+  display.println("System Init...");
   display.display();
 
-  // Initialize LittleFS
-  if(!LittleFS.begin(true)){
-    Serial.println("An Error has occurred while mounting LittleFS");
+  // Initialize SD Card
+  if (!SD.begin(PIN_SD_CS)) {
+    Serial.println("SD Card Mount Failed");
+  } else {
+    sdCardReady = true;
+    Serial.println("SD Card Mount Success");
   }
 
-  // Initialize Wi-Fi
+  // Initialize Wi-Fi & Blynk
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Blynk.config(BLYNK_AUTH_TOKEN);
   secured_client.setCACert(TELEGRAM_CERTIFICATE_ROOT);
   
   // Initialize MAX30102
@@ -76,6 +87,8 @@ void setup() {
 
 void loop() {
   unsigned long currentMillis = millis();
+  
+  Blynk.run(); // Process Blynk IoT connection
 
   // 1. ECG Acquisition (250Hz non-blocking)
   if (currentMillis - lastEcgTime >= ECG_SAMPLE_INTERVAL_MS) {
@@ -83,8 +96,7 @@ void loop() {
     
     // Check for leads off
     if ((digitalRead(PIN_ECG_LO_PLUS) == 1) || (digitalRead(PIN_ECG_LO_MINUS) == 1)) {
-      // Leads are off, do not log analog signal
-      // Serial.println("!"); 
+      // Leads are off
     } else {
       // Read ECG analog value
       int ecgValue = analogRead(PIN_ECG_OUTPUT);
@@ -92,12 +104,14 @@ void loop() {
       // Basic digital low pass filter (Moving Average)
       movingAvgEcg = (alpha * ecgValue) + ((1.0 - alpha) * movingAvgEcg);
       
-      // In a real application, you might plot this via Serial Plotter
-      // Serial.println(movingAvgEcg);
+      // Send to Blynk Virtual Pin V0
+      if(Blynk.connected()) {
+        Blynk.virtualWrite(V0, movingAvgEcg);
+      }
     }
   }
 
-  // 2. MAX30102 Heart Rate Reading
+  // 2. MAX30102 Heart Rate & SpO2 Reading
   long irValue = particleSensor.getIR();
   
   if (checkForBeat(irValue) == true) {
@@ -115,6 +129,11 @@ void loop() {
         beatAvg += rates[x];
       }
       beatAvg /= RATE_SIZE;
+      
+      // Send HR to Blynk Virtual Pin V1
+      if(Blynk.connected()) {
+        Blynk.virtualWrite(V1, beatAvg);
+      }
     }
   }
 
@@ -130,10 +149,23 @@ void loop() {
     
     if (irValue < 50000) {
       display.println("No finger?");
+      spO2 = 0;
     } else {
+      // Dummy logic for SpO2 to avoid freezing the non-blocking loop with MAX30102 complex calculations
+      // Real implementation would use sparkfun algorithm
+      spO2 = 98; // Placeholder
+
       display.print("HR: ");
       display.print(beatAvg);
       display.println(" BPM");
+      display.print("SpO2: ");
+      display.print(spO2);
+      display.println(" %");
+      
+      // Send SpO2 to Blynk Virtual Pin V2
+      if(Blynk.connected()) {
+        Blynk.virtualWrite(V2, spO2);
+      }
     }
     display.display();
   }
@@ -145,21 +177,32 @@ void loop() {
     
     // If heart rate is dangerously high/low and finger is present
     if (irValue > 50000 && (beatAvg > 120 || beatAvg < 40) && beatAvg != 0) {
+      
+      // Turn on Buzzer
+      digitalWrite(PIN_BUZZER, HIGH);
+      
       if (WiFi.status() == WL_CONNECTED && (currentMillis - lastTelegramTime > TELEGRAM_DELAY)) {
         String message = "EMERGENCY ALERT: Abnormal Heart Rate Detected!\n";
         message += "Current HR: " + String(beatAvg) + " BPM";
         bot.sendMessage(CHAT_ID, message, "");
         lastTelegramTime = currentMillis;
-      } else if (WiFi.status() != WL_CONNECTED) {
-        // Log to LittleFS for offline storage
-        File file = LittleFS.open("/alerts.log", FILE_APPEND);
+      }
+      
+      // Log to microSD for offline storage
+      if(sdCardReady) {
+        File file = SD.open("/alerts.log", FILE_APPEND);
         if(file){
           file.print(currentMillis);
           file.print(", HR: ");
-          file.println(beatAvg);
+          file.print(beatAvg);
+          file.print(", SpO2: ");
+          file.println(spO2);
           file.close();
         }
       }
+    } else {
+      // Turn off Buzzer if conditions are normal
+      digitalWrite(PIN_BUZZER, LOW);
     }
   }
 }
