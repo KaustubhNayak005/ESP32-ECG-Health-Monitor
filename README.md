@@ -1,298 +1,157 @@
-# ECG Monitoring System with Analog Signal Conditioning
+<div align="center">
+  <img src="https://img.shields.io/badge/PlatformIO-Compatible-orange?style=for-the-badge&logo=PlatformIO" alt="PlatformIO">
+  <img src="https://img.shields.io/badge/ESP32-WROOM--32-red?style=for-the-badge&logo=espressif" alt="ESP32">
+  <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/C%2B%2B-17-00599C?style=for-the-badge&logo=c%2B%2B" alt="C++">
+  <br>
+  <h1>ECG Monitoring System with Analog Signal Conditioning</h1>
+  <p>A portable, low-cost biomedical monitoring device designed for continuous acquisition, processing, visualization, and remote transmission of physiological signals.</p>
+</div>
 
 ---
 
-## Project Overview
+## 📖 Project Overview
 
-The **ECG Monitoring System with Analog Signal Conditioning** is a portable, low-cost biomedical monitoring device designed for continuous acquisition, processing, visualization, and remote transmission of physiological signals. The system combines an **analog ECG acquisition front-end**, embedded processing, wireless communication, and cloud connectivity to provide real-time health monitoring.
+Unlike conventional IoT projects that simply interface sensors with a microcontroller, this project emphasizes **analog signal conditioning**, accurate physiological data acquisition, and reliable modular embedded C++ design. 
 
-Unlike conventional IoT projects that simply interface sensors with a microcontroller, this project emphasizes **analog signal conditioning**, accurate physiological data acquisition, and reliable embedded system design. The ECG signal, which is typically in the range of a few millivolts, is conditioned using a dedicated analog front-end before being digitized by the ESP32. Additional health parameters such as blood oxygen saturation (SpO₂) and heart rate are acquired simultaneously, enabling multi-parameter patient monitoring.
+The ECG signal, which is typically in the range of a few millivolts, is conditioned using the **AD8232 analog front-end** before being digitized by the ESP32. Additional health parameters such as blood oxygen saturation (SpO₂) and heart rate are acquired simultaneously via the **MAX30102**, enabling multi-parameter patient monitoring.
 
-The collected data is displayed locally on an OLED display, transmitted to the cloud via Wi-Fi for remote access, and emergency notifications are sent instantly using a Telegram Bot. The system also supports offline data logging to ensure reliability when network connectivity is unavailable.
-
----
-
-# Objectives
-
-- Acquire low-amplitude ECG signals using an analog front-end.
-- Monitor ECG, Heart Rate, and Blood Oxygen (SpO₂) simultaneously.
-- Provide real-time visualization of physiological signals.
-- Enable wireless remote monitoring over Wi-Fi.
-- Send emergency alerts through Telegram Bot.
-- Support offline data logging.
-- Build a low-cost and portable healthcare monitoring device.
+The collected data is displayed locally on an OLED display, transmitted to the cloud via Wi-Fi (Blynk IoT) for remote access, and emergency notifications are sent instantly using a **Telegram Bot**. The system also supports high-speed offline data logging to a **microSD Card** to ensure reliability when network connectivity is unavailable.
 
 ---
 
-# Hardware Components
+## 🎯 Objectives
+
+- **Acquire** low-amplitude ECG signals using an analog front-end.
+- **Monitor** ECG, Heart Rate, and Blood Oxygen (SpO₂) simultaneously.
+- **Visualize** physiological signals in real-time.
+- **Enable** wireless remote monitoring over Wi-Fi.
+- **Send** emergency alerts through Telegram Bot.
+- **Log** data offline via high-speed SPI microSD storage.
+- **Build** a low-cost and portable healthcare monitoring device.
+
+---
+
+## 🛠 Hardware Components
 
 | Component | Purpose |
 |-----------|---------|
-| ESP32-WROOM-32 | Main microcontroller |
-| AD8232 ECG Analog Front-End | ECG signal acquisition and conditioning |
-| MAX30102 | Heart Rate & SpO₂ Sensor |
-| 1.3" OLED Display | Local visualization |
-| Buzzer | Emergency alerts |
-| microSD Card Module | Offline data logging |
-| ECG Electrodes | Bio-potential acquisition |
-| Power Bank | Portable power supply |
+| **ESP32-WROOM-32** | Main microcontroller |
+| **AD8232 AFE** | ECG signal acquisition and conditioning |
+| **MAX30102** | Heart Rate & SpO₂ Sensor |
+| **1.3" OLED** | Local visualization |
+| **Active Buzzer** | Emergency audio alerts |
+| **microSD Module**| Offline data logging |
+| **ECG Electrodes** | Bio-potential acquisition |
+| **Power Bank** | Portable 5V power supply |
 
 ---
 
-# Communication Interfaces
+## 🏗 System Architecture
 
-## ADC
-Used for:
-- ECG signal acquisition
-- Sampling conditioned analog output from AD8232
-- 250 Hz sampling rate
+The project has been refactored into a highly modular **PlatformIO** C++ architecture.
 
-## I²C
-Used for:
-- MAX30102
-- OLED Display
-
-Advantages:
-- Two-wire communication
-- Low pin count
-- Multiple devices on same bus
-
-## SPI
-Used for:
-- microSD Card
-
-Advantages:
-- High-speed data logging
-- Reliable storage
-
-## GPIO
-Used for:
-- Buzzer
-- Status LEDs
-- Control signals
-
-## Wi-Fi
-ESP32 onboard Wi-Fi is used for:
-- Cloud communication
-- Remote monitoring
-- IoT dashboard
-- Telegram Bot communication
-
----
-
-# Analog Signal Conditioning
-
-The analog section is the core of the project.
-The AD8232 Analog Front-End performs:
-- Instrumentation amplification
-- Common-mode noise rejection
-- High-pass filtering
-- Low-pass filtering
-- Baseline stabilization
-- Motion artifact reduction
-
-The conditioned ECG signal is then fed to the ESP32 ADC for digitization.
-
----
-
-# Software Stack
-
-- Embedded C++
-- Arduino Framework
-- ESP32 SDK
-- Wi-Fi Networking
-- Telegram Bot API
-- Blynk IoT Platform
-- OLED Graphics Library
-- MAX30102 Driver
-- ADC Driver
-
----
-
-# System Architecture
-
-```
-ECG Electrodes
-        │
-        ▼
- AD8232 Analog Front-End
-        │
-        ▼
-     ESP32 ADC
-        │
-        ▼
- Signal Processing
-        │
- ┌──────┼─────────────┐
- │      │             │
- ▼      ▼             ▼
-OLED  Cloud      Telegram Bot
-(I²C) (Wi-Fi)     Alerts
-        │
-        ▼
- Offline Storage
-   (SPI microSD)
+```text
+ESP32-ECG-Health-Monitor/
+├── platformio.ini         (Dependency Management)
+├── include/config.h       (Global Settings & Pins)
+└── src/
+    ├── main.cpp           (Main Loop)
+    ├── ecg/               (AD8232 Logic)
+    ├── oximeter/          (MAX30102 Logic)
+    ├── display/           (OLED Logic)
+    ├── storage/           (SD Card Logic)
+    ├── network/           (Wi-Fi, Blynk, Telegram Logic)
+    └── alerts/            (Buzzer Logic)
 ```
 
 ---
 
-# Key Features
+## 🔌 Hardware Schematic & Wiring
 
-- Analog ECG signal conditioning
-- Real-time ECG acquisition (250 Hz)
-- Continuous Heart Rate Monitoring
-- Blood Oxygen (SpO₂) Measurement
-- OLED real-time display
-- Wi-Fi enabled cloud monitoring
-- Telegram emergency notifications
-- Offline data logging
-- Portable battery-powered design
-- Low-cost implementation
+The following Mermaid diagram illustrates the exact hardware connections. A separate file is also available in `docs/schematic.md`.
 
----
+```mermaid
+graph TD
+    %% Define Components
+    ESP[ESP32-WROOM-32]
+    AD8232[AD8232 ECG Sensor]
+    MAX30102[MAX30102 SpO2 & HR]
+    OLED[1.3" OLED Display]
+    SD[microSD Card Module]
+    BUZ[Active Buzzer]
+    PWR[Power Bank 5V]
 
-# Engineering Challenges
+    %% Wiring connections
+    PWR -- 5V --> ESP
+    ESP -- 3.3V --> AD8232
+    ESP -- 3.3V --> MAX30102
+    ESP -- 3.3V --> OLED
+    ESP -- 5V --> SD
+    
+    %% ECG connections
+    AD8232 -- OUTPUT --> ESP_ADC[ESP32 GPIO 34]
+    AD8232 -- LO+ --> ESP_D14[ESP32 GPIO 14]
+    AD8232 -- LO- --> ESP_D12[ESP32 GPIO 12]
 
-## Analog
-- Acquiring millivolt-level ECG signals
-- Reducing motion artifacts
-- Minimizing electrical noise
-- Stable ADC sampling
+    %% I2C connections
+    MAX30102 -- SDA --> I2C_SDA[ESP32 GPIO 21]
+    MAX30102 -- SCL --> I2C_SCL[ESP32 GPIO 22]
+    OLED -- SDA --> I2C_SDA
+    OLED -- SCL --> I2C_SCL
 
-## Embedded
-- Simultaneous sensor interfacing
-- Real-time sampling
-- Display updates
-- Cloud communication
-- Data logging
+    %% SPI connections
+    SD -- CS --> SPI_CS[ESP32 GPIO 5]
+    SD -- MOSI --> SPI_MOSI[ESP32 GPIO 23]
+    SD -- MISO --> SPI_MISO[ESP32 GPIO 19]
+    SD -- SCK --> SPI_SCK[ESP32 GPIO 18]
 
-## Communication
-- Wi-Fi connectivity
-- Telegram API integration
-- Cloud synchronization
-
----
-
-# Skills Demonstrated
-
-## Analog Electronics
-- Analog Front-End (AFE)
-- Signal Conditioning
-- Biomedical Signal Acquisition
-- Noise Reduction
-- ADC Interfacing
-
-## Embedded Systems
-- ESP32 Firmware Development
-- Interrupt Handling
-- Real-Time Sampling
-- Peripheral Drivers
-- Embedded C++
-
-## Communication Protocols
-- ADC
-- I²C
-- SPI
-- GPIO
-- Wi-Fi
-- HTTP/API Communication
-
-## IoT
-- Cloud Monitoring
-- Remote Healthcare
-- Telegram Bot Integration
-- Real-Time Alerts
-
-## Biomedical Engineering
-- ECG Acquisition
-- Heart Rate Monitoring
-- Blood Oxygen Measurement
-- Portable Patient Monitoring
+    %% Buzzer connection
+    BUZ -- SIGNAL --> ESP_D25[ESP32 GPIO 25]
+```
 
 ---
 
-# Resume Description
+## 🚀 Getting Started
 
-### ECG Monitoring System with Analog Signal Conditioning
-- Developed an **ESP32-WROOM-32** based ECG monitoring system using the **AD8232 analog front-end**, **MAX30102** (SpO₂ & Heart Rate), and **OLED (I²C)** for real-time physiological monitoring.
-- Implemented **250 Hz** ECG acquisition, **Wi-Fi**-based cloud monitoring, **Telegram Bot API** alerts, and peripheral interfacing via **ADC**, **I²C**, **SPI**, and **GPIO** for continuous remote healthcare monitoring and offline data logging.
-- Improved signal reliability through analog signal conditioning and real-time processing while enabling portable, low-cost patient monitoring.
+This project uses **PlatformIO** for easy compilation and automatic dependency management.
 
----
-
-# Technologies Used
-
-### Hardware
-- ESP32-WROOM-32
-- AD8232
-- MAX30102
-- OLED Display
-- microSD Card
-- Buzzer
-
-### Protocols
-- ADC
-- I²C
-- SPI
-- GPIO
-- Wi-Fi
-
-### Software
-- Embedded C++
-- Arduino IDE
-- Blynk IoT
-- Telegram Bot API
+1. **Install PlatformIO**: Install the PlatformIO IDE extension for VS Code.
+2. **Clone the Repo**:
+   ```bash
+   git clone https://github.com/KaustubhNayak005/ESP32-ECG-Health-Monitor.git
+   ```
+3. **Configure Credentials**: Open `include/config.h` and update your Wi-Fi, Telegram, and Blynk credentials.
+4. **Build and Upload**: Click the **Upload** button in PlatformIO. It will automatically download all required libraries (Blynk, Adafruit GFX, MAX30105, TelegramBot) and flash the ESP32.
 
 ---
 
-# Interview Topics Covered
+## ⚡ Engineering Challenges & Skills
 
-## Analog Electronics
-- Analog Signal Conditioning
-- Instrumentation Amplifiers
-- ECG Acquisition
-- Noise Reduction
-- Biomedical Sensors
-- ADC Sampling
+### Analog Electronics
+- **AFE (Analog Front-End)**: Conditioning millivolt-level bio-potentials.
+- **Noise Reduction**: Common-mode rejection and high/low-pass filtering.
 
-## Embedded Systems
-- ESP32
-- Interrupts
-- Peripheral Interfacing
-- Memory Management
-- Real-Time Systems
+### Embedded Systems
+- **Modular C++**: Distributed, object-oriented firmware architecture.
+- **Real-Time Sampling**: Non-blocking 250 Hz ADC acquisition.
+- **Peripheral Interfacing**: SPI (SD Card), I2C (OLED, MAX30102), GPIO (Buzzer, Leads-off).
 
-## Communication
-- I²C
-- SPI
-- GPIO
-- Wi-Fi
-- REST APIs
-- Telegram Bot API
-
-## IoT
-- Cloud Monitoring
-- Remote Healthcare
-- Real-Time Alerts
-
-## Biomedical
-- ECG Signal Acquisition
-- Heart Rate Detection
-- SpO₂ Monitoring
-- Portable Medical Devices
+### IoT & Networking
+- **Wi-Fi Connectivity**: Asynchronous cloud streaming via Blynk IoT.
+- **Telegram APIs**: Secure SSL/TLS connections for emergency Webhook alerts.
 
 ---
 
-# Possible Future Enhancements
+## 📝 License
 
+This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## 🔮 Future Enhancements
 - Custom ECG Analog Front-End PCB
 - Hardware 50 Hz Notch Filter
-- Anti-Aliasing Filter Design
 - AI-based Arrhythmia Detection
-- BLE Connectivity
-- Mobile Application
-- Wearable Form Factor
-- Secure Cloud Communication (TLS)
-- Battery Management System
-- Low-Power Optimization
+- BLE Connectivity & Wearable Form Factor
 - Multi-lead ECG Acquisition
